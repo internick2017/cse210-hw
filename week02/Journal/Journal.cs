@@ -4,7 +4,7 @@ using System.IO;
 
 class Journal
 {
-    private List<Entry> _entries = new List<Entry>();
+    private readonly List<Entry> _entries = new List<Entry>();
 
     public void AddEntry(Entry entry)
     {
@@ -25,6 +25,44 @@ class Journal
         {
             entry.Display();
             Console.WriteLine(); // Add a blank line between entries
+        }
+    }
+
+    public void SearchEntries(string searchTerm)
+    {
+        if (_entries.Count == 0)
+        {
+            Console.WriteLine("No entries to search.");
+            return;
+        }
+
+        Console.WriteLine($"\n=== Search Results for '{searchTerm}' ===");
+
+        // Convert search term to lowercase for case-insensitive search
+        searchTerm = searchTerm.ToLower();
+
+        int matchCount = 0;
+
+        foreach (Entry entry in _entries)
+        {
+            // Check if the search term exists in the text, prompt, or date (case insensitive)
+            if (entry.Text.ToLower().Contains(searchTerm) ||
+                entry.Prompt.ToLower().Contains(searchTerm) ||
+                entry.Date.ToLower().Contains(searchTerm))
+            {
+                entry.Display();
+                Console.WriteLine(); // Add a blank line between entries
+                matchCount++;
+            }
+        }
+
+        if (matchCount == 0)
+        {
+            Console.WriteLine("No entries found matching your search term.");
+        }
+        else
+        {
+            Console.WriteLine($"Found {matchCount} matching entries.");
         }
     }
 
@@ -53,7 +91,7 @@ class Journal
     {
         try
         {
-            _entries.Clear();
+            _entries.Clear(); // Clear existing entries
 
             string[] lines = File.ReadAllLines(filename);
 

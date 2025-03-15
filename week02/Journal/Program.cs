@@ -1,5 +1,19 @@
 using System;
 
+/*
+* EXCEEDING REQUIREMENTS:
+* This program exceeds the core requirements by implementing a search functionality
+* that allows users to search through their journal entries. The search feature works as follows:
+*
+* 1. Users can search for any text within entry content, prompts, or dates
+* 2. The search is case-insensitive for better user experience
+* 3. The program displays all matching entries and a count of how many were found
+* 4. If no entries match the search term, the user is informed accordingly
+*
+* This feature adds significant value by helping users find specific memories or topics
+* they've written about, especially as their journal grows larger over time.
+*/
+
 class Program
 {
     static void Main(string[] args)
@@ -18,7 +32,8 @@ class Program
             Console.WriteLine("2. Display the journal");
             Console.WriteLine("3. Save the journal to a file");
             Console.WriteLine("4. Load the journal from a file");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("5. Search entries");
+            Console.WriteLine("6. Exit");
             Console.Write("What would you like to do? ");
 
             string choice = Console.ReadLine();
@@ -60,6 +75,13 @@ class Program
                     break;
 
                 case "5":
+                    // Search entries
+                    Console.Write("Enter search term: ");
+                    string searchTerm = Console.ReadLine();
+                    journal.SearchEntries(searchTerm);
+                    break;
+
+                case "6":
                     // Exit
                     running = false;
                     break;

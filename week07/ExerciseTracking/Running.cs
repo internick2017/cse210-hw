@@ -1,0 +1,17 @@
+using System;
+
+namespace ExerciseTracking;
+public class Running : Activity
+{
+    private readonly double _distance;
+
+    public Running(string date, int minutes, double distance)
+        : base(date, minutes)
+    {
+        _distance = distance;
+    }
+
+    public override double GetDistance() => _distance;
+    public override double GetSpeed() => (_distance / Minutes) * 60;
+    public override double GetPace() => Minutes / _distance;
+}
